@@ -21,12 +21,18 @@ class Article(models.Model):
     published = models.BooleanField(default=False)
     views = models.PositiveIntegerField(default=0)
     comments = models.SmallIntegerField(default=0)
+    important = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     tags = models.ManyToManyField(Tag)
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if self.important:
+            Article.objects.exclude(id = self.pk).filter(important=True).update(important=False)
+        super().save(*args, **kwargs)
 
 
 class Contex(models.Model):
@@ -75,3 +81,6 @@ class Moment(models.Model):
 
     def __str__(self):
         return self.title
+
+
+

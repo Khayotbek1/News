@@ -3,7 +3,7 @@
   <component name="de.achimonline.quickjinja.settings.QuickJinjaProjectSettingsState">
     <option name="settings">
       <QuickJinjaProjectSettings>
-        <option name="templateFilePath" value="$PROJECT_DIR$/main/models.py" />
+        <option name="templateFilePath" value="$PROJECT_DIR$/templates/contact.html" />
       </QuickJinjaProjectSettings>
     </option>
   </component>
