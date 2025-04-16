@@ -85,8 +85,8 @@
         <div class="container px-0">
             <nav class="navbar navbar-light navbar-expand-xl">
                 <a href="index.html" class="navbar-brand mt-3">
-                    <p class="text-primary display-6 mb-2" style="line-height: 0;">Newsers</p>
-                    <small class="text-body fw-normal" style="letter-spacing: 12px;">Nespaper</small>
+                    <img src="/static/img/logo.png"  alt="" class="text-primary display-6 mb-2" style="line-height: 0; width: 200px;display: block;>
+                    <small class="text-body fw-normal"></small>
                 </a>
                 <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarCollapse">
@@ -110,18 +110,19 @@
                     </div>
                     <div class="d-flex flex-nowrap border-top pt-3 pt-xl-0">
                         <div class="d-flex">
-                            <img src="img/weather-icon.png" class="img-fluid w-100 me-2" alt="">
+                            <img src="{{ condition.icon }}" class="img-fluid w-100 me-2" alt="">
                             <div class="d-flex align-items-center">
-                                <strong class="fs-4 text-secondary">31°C</strong>
+                                <strong class="fs-4 text-secondary">{{ temp_c }}°C</strong>
                                 <div class="d-flex flex-column ms-2" style="width: 150px;">
-                                    <span class="text-body">NEW YORK,</span>
-                                    <small>Mon. 10 jun 2024</small>
+                                    <span class="text-body" style="text-decoration: underline">Farg'ona</span>
+                                    <small> {{ localtime|date:"d.m.Y" }}</small>
                                 </div>
                             </div>
                         </div>
                         <button class="btn-search btn border border-primary btn-md-square rounded-circle bg-white my-auto"
                                 data-bs-toggle="modal" data-bs-target="#searchModal"><i
-                                class="fas fa-search text-primary"></i></button>
+                                class="fas fa-search text-primary"></i>
+                        </button>
                     </div>
                 </div>
             </nav>
@@ -206,7 +207,7 @@
                         <a href="#">
                             <div class="d-flex align-items-center">
                                 <div class="rounded-circle border border-2 border-primary overflow-hidden">
-                                    <img src="img/footer-1.jpg" class="img-zoomin img-fluid rounded-circle w-100"
+                                    <img src="/static/img/footer-1.jpg" class="img-zoomin img-fluid rounded-circle w-100"
                                          alt="">
                                 </div>
                                 <div class="d-flex flex-column ps-4">
@@ -224,7 +225,7 @@
                         <a href="#">
                             <div class="d-flex align-items-center">
                                 <div class="rounded-circle border border-2 border-primary overflow-hidden">
-                                    <img src="img/footer-2.jpg" class="img-zoominimg-fluid rounded-circle w-100" alt="">
+                                    <img src="/static/img/footer-2.jpg" class="img-zoominimg-fluid rounded-circle w-100" alt="">
                                 </div>
                                 <div class="d-flex flex-column ps-4">
                                     <p class="text-uppercase text-white mb-3">Sports</p>
@@ -258,32 +259,32 @@
                     <div class="row g-2">
                         <div class="col-4">
                             <div class="rounded overflow-hidden">
-                                <img src="img/footer-1.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
+                                <img src="/static/img/footer-1.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="rounded overflow-hidden">
-                                <img src="img/footer-2.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
+                                <img src="/static/img/footer-2.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="rounded overflow-hidden">
-                                <img src="img/footer-3.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
+                                <img src="/static/img/footer-3.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="rounded overflow-hidden">
-                                <img src="img/footer-4.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
+                                <img src="/static/img/footer-4.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="rounded overflow-hidden">
-                                <img src="img/footer-5.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
+                                <img src="/static/img/footer-5.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="rounded overflow-hidden">
-                                <img src="img/footer-6.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
+                                <img src="/static/img/footer-6.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
                             </div>
                         </div>
                     </div>

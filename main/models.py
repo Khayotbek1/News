@@ -1,4 +1,5 @@
 from django.db import models
+from .managers import *
 
 class Category(models.Model):
       name = models.CharField(max_length=255)
@@ -25,6 +26,9 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     tags = models.ManyToManyField(Tag)
+
+    objects = models.Manager()
+    published_data = PublishedManager()
 
     def __str__(self):
         return self.title
@@ -65,7 +69,7 @@ class Contact(models.Model):
         return self.name
 
 
-class NewLetter(models.Model):
+class NewsLetter(models.Model):
     email = models.EmailField()
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -78,6 +82,8 @@ class Moment(models.Model):
     author = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     published = models.BooleanField(default=False)
+    objects = models.Manager()
+    published_data = PublishedManager()
 
     def __str__(self):
         return self.title

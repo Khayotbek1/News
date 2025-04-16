@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
-{% block title %} Home Page{% endblock %}
+{% block title %} Home Page {% endblock %}
 {% block content %}
+
 
     <!-- Features Start -->
     <div class="container-fluid features mb-5">
@@ -117,7 +118,6 @@
                         <img src="{{ articles.0.image.url }}" class="img-fluid rounded img-zoomin w-100" alt="">
                         <div class="d-flex justify-content-center px-4 position-absolute flex-wrap"
                              style="bottom: 10px; left: 0;">
-
                             <a href="#" class="text-white me-3 link-hover">
                                 <i class="fa fa-clock"></i> {{ articles.0.read_time }} o'qiladi
                             </a>
@@ -130,7 +130,6 @@
                             <a href="#" class="text-white link-hover">
                                 <i class="fa fa-calendar"></i> {{ articles.0.created_at|date:"d.m.Y" }}
                             </a>
-
                         </div>
                     </div>
                     <div class="border-bottom py-3">
@@ -154,22 +153,15 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex flex-column">
-
-                                    <a href="#" class="h3">{{ articles.1.title|truncatechars:72 }}
+                                    <a href="#" class="h3">
+                                        {{ articles.1.title|truncatechars:72 }}
                                     </a>
-
-                                    <p class="mb-0 fs-5">
-                                        <i class="fa fa-clock"> {{ articles.1.read_time }} o'qiladi</i>
+                                    <p class="mb-0 fs-5"><i class="fa fa-clock"> {{ articles.1.read_time }} o'qiladi</i>
                                     </p>
-
-                                    <p class="mb-0 fs-5">
-                                        <i class="fa fa-eye"> {{ articles.1.views }} ko'rildi</i>
+                                    <p class="mb-0 fs-5"><i class="fa fa-eye"> {{ articles.1.views }} ko'rildi </i></p>
+                                    <p class="mb-0 fs-5"><i class="fa fa-calendar">
+                                        {{ articles.0.created_at|date:"d.m.Y" }}</i>
                                     </p>
-
-                                    <p class="mb-0 fs-5">
-                                        <i class="fa fa-calendar"> {{ articles.0.created_at|date:"d.m.Y" }}</i>
-                                    </p>
-
                                 </div>
                             </div>
                         </div>
@@ -186,19 +178,12 @@
                             </div>
                             <div class="col-12">
                                 <div class="d-flex flex-column">
-
                                     <a href="#" class="h4 mb-2">
                                         {{ articles.2.title|truncatechars:72 }}
                                     </a>
-
-                                    <p class="fs-5 mb-0">
-                                        <i class="fa fa-clock"> {{ articles.2.read_time }} o'qiladi</i>
+                                    <p class="fs-5 mb-0"><i class="fa fa-clock"> {{ articles.2.read_time }} o'qiladi</i>
                                     </p>
-
-                                    <p class="fs-5 mb-0">
-                                        <i class="fa fa-eye"> {{ articles.2.views }} ko'rildi</i>
-                                    </p>
-
+                                    <p class="fs-5 mb-0"><i class="fa fa-eye"> {{ articles.2.views }} ko'rildi </i></p>
                                 </div>
                             </div>
                             {% for article in articles|slice:"3:" %}
@@ -207,7 +192,8 @@
                                         <div class="col-5">
                                             <div class="overflow-hidden rounded">
                                                 <img src="{{ article.image.url }}"
-                                                     class="img-zoomin img-fluid rounded w-100" alt="">
+                                                     class="img-zoomin img-fluid rounded w-100"
+                                                     alt="">
                                             </div>
                                         </div>
                                         <div class="col-7">
@@ -237,19 +223,20 @@
             <div class="row g-4 align-items-center">
                 <div class="col-lg-7">
                     <h1 class="mb-4 text-primary">Newsers</h1>
-                    <h1 class="mb-4">Get Every Weekly Updates</h1>
+                    <h1 class="mb-4">Har hafta yangiliklarni kuztib boring.</h1>
                     <p class="text-dark mb-4 pb-2">Lorem Ipsum is simply dummy text of the printing and typesetting
                         industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
                         unknown printer took a galley
                     </p>
-                    <div class="position-relative mx-auto">
-                        <input class="form-control w-100 py-3 rounded-pill" type="email"
-                               placeholder="Your Busines Email">
+                    <form class="position-relative mx-auto" method="post">
+                        {% csrf_token %}
+                        <input class="form-control w-100 py-3 rounded-pill" type="email" name="newsletter_email"
+                               placeholder="Emailingizni kiriting...">
                         <button type="submit"
                                 class="btn btn-primary py-3 px-5 position-absolute rounded-pill text-white h-100"
-                                style="top: 0; right: 0;">Subscribe Now
+                                style="top: 0; right: 0;">Yuborish
                         </button>
-                    </div>
+                    </form>
                 </div>
                 <div class="col-lg-5">
                     <div class="rounded">
@@ -265,83 +252,28 @@
     <!-- Latest News Start -->
     <div class="container-fluid latest-news py-5">
         <div class="container py-5">
-            <h2 class="mb-4">Latest News</h2>
+            <h2 class="mb-4">So'ngi Yangiliklar</h2>
             <div class="latest-news-carousel owl-carousel">
-                <div class="latest-news-item">
-                    <div class="bg-light rounded">
-                        <div class="rounded-top overflow-hidden">
-                            <img src="img/news-7.jpg" class="img-zoomin img-fluid rounded-top w-100" alt="">
-                        </div>
-                        <div class="d-flex flex-column p-4">
-                            <a href="#" class="h4">Lorem Ipsum is simply dummy text of...</a>
-                            <div class="d-flex justify-content-between">
-                                <a href="#" class="small text-body link-hover">by Willum Skeem</a>
-                                <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> Dec 9,
-                                    2024</small>
+                {% for article in latest_articles %}
+                    <div class="latest-news-item">
+                        <div class="bg-light rounded">
+                            <div class="rounded-top overflow-hidden">
+                                <img src="{{ article.image.url }}" class="img-zoomin img-fluid rounded-top w-100"
+                                     alt="">
+                            </div>
+                            <div class="d-flex flex-column p-4">
+                                <a href="#" class="h4">{{ article.title|truncatechars:50 }}</a>
+                                <div class="d-flex justify-content-between">
+                                    <a href="#" class="small text-body link-hover">{{ article.author }}</a>
+                                    <small class="text-body d-block">
+                                        <i class="fas fa-calendar-alt me-1"></i> {{ article.created_at|date:"d.m.Y" }}
+                                    </small>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="latest-news-item">
-                    <div class="bg-light rounded">
-                        <div class="rounded-top overflow-hidden">
-                            <img src="img/news-6.jpg" class="img-zoomin img-fluid rounded-top w-100" alt="">
-                        </div>
-                        <div class="d-flex flex-column p-4">
-                            <a href="#" class="h4">Lorem Ipsum is simply dummy text of...</a>
-                            <div class="d-flex justify-content-between">
-                                <a href="#" class="small text-body link-hover">by Willum Skeem</a>
-                                <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> Dec 9,
-                                    2024</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="latest-news-item">
-                    <div class="bg-light rounded">
-                        <div class="rounded-top overflow-hidden">
-                            <img src="img/news-3.jpg" class="img-zoomin img-fluid rounded-top w-100" alt="">
-                        </div>
-                        <div class="d-flex flex-column p-4">
-                            <a href="#" class="h4">Lorem Ipsum is simply dummy text of...</a>
-                            <div class="d-flex justify-content-between">
-                                <a href="#" class="small text-body link-hover">by Willum Skeem</a>
-                                <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> Dec 9,
-                                    2024</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="latest-news-item">
-                    <div class="bg-light rounded">
-                        <div class="rounded-top overflow-hidden">
-                            <img src="img/news-4.jpg" class="img-zoomin img-fluid rounded-top w-100" alt="">
-                        </div>
-                        <div class="d-flex flex-column p-4">
-                            <a href="#" class="h4">Lorem Ipsum is simply dummy text of...</a>
-                            <div class="d-flex justify-content-between">
-                                <a href="#" class="small text-body link-hover">by Willum Skeem</a>
-                                <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> Dec 9,
-                                    2024</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="latest-news-item">
-                    <div class="bg-light rounded">
-                        <div class="rounded-top overflow-hidden">
-                            <img src="img/news-5.jpg" class="img-zoomin img-fluid rounded-top w-100" alt="">
-                        </div>
-                        <div class="d-flex flex-column p-4">
-                            <a href="#" class="h4 ">Lorem Ipsum is simply dummy text of...</a>
-                            <div class="d-flex justify-content-between">
-                                <a href="#" class="small text-body link-hover">by Willum Skeem</a>
-                                <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> Dec 9,
-                                    2024</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
+
             </div>
         </div>
     </div>
@@ -410,7 +342,8 @@
                                             <a href="#" class="text-dark link-hover me-3"><i class="fa fa-eye"></i> 3.5k
                                                 Views</a>
                                             <a href="#" class="text-dark link-hover me-3"><i
-                                                    class="fa fa-comment-dots"></i> 05 Comment</a>
+                                                    class="fa fa-comment-dots"></i>
+                                                05 Comment</a>
                                             <a href="#" class="text-dark link-hover"><i class="fa fa-arrow-up"></i> 1.5k
                                                 Share</a>
                                         </div>
@@ -544,7 +477,8 @@
                                             <a href="#" class="text-dark link-hover me-3"><i class="fa fa-eye"></i> 3.5k
                                                 Views</a>
                                             <a href="#" class="text-dark link-hover me-3"><i
-                                                    class="fa fa-comment-dots"></i> 05 Comment</a>
+                                                    class="fa fa-comment-dots"></i>
+                                                05 Comment</a>
                                             <a href="#" class="text-dark link-hover"><i class="fa fa-arrow-up"></i> 1.5k
                                                 Share</a>
                                         </div>
@@ -674,7 +608,8 @@
                                             <a href="#" class="text-dark link-hover me-3"><i class="fa fa-eye"></i> 3.5k
                                                 Views</a>
                                             <a href="#" class="text-dark link-hover me-3"><i
-                                                    class="fa fa-comment-dots"></i> 05 Comment</a>
+                                                    class="fa fa-comment-dots"></i>
+                                                05 Comment</a>
                                             <a href="#" class="text-dark link-hover"><i class="fa fa-arrow-up"></i> 1.5k
                                                 Share</a>
                                         </div>
@@ -804,7 +739,8 @@
                                             <a href="#" class="text-dark link-hover me-3"><i class="fa fa-eye"></i> 3.5k
                                                 Views</a>
                                             <a href="#" class="text-dark link-hover me-3"><i
-                                                    class="fa fa-comment-dots"></i> 05 Comment</a>
+                                                    class="fa fa-comment-dots"></i>
+                                                05 Comment</a>
                                             <a href="#" class="text-dark link-hover"><i class="fa fa-arrow-up"></i> 1.5k
                                                 Share</a>
                                         </div>
@@ -934,7 +870,8 @@
                                             <a href="#" class="text-dark link-hover me-3"><i class="fa fa-eye"></i> 3.5k
                                                 Views</a>
                                             <a href="#" class="text-dark link-hover me-3"><i
-                                                    class="fa fa-comment-dots"></i> 05 Comment</a>
+                                                    class="fa fa-comment-dots"></i>
+                                                05 Comment</a>
                                             <a href="#" class="text-dark link-hover"><i class="fa fa-arrow-up"></i> 1.5k
                                                 Share</a>
                                         </div>
@@ -1042,127 +979,54 @@
                             </div>
                         </div>
                         <div class="border-bottom mb-4">
-                            <h2 class="my-4">Most Views News</h2>
+                            <h2 class="my-4">Eng koʻp koʻrilgan yangiliklar</h2>
                         </div>
                         <div class="whats-carousel owl-carousel">
-                            <div class="latest-news-item">
+                            {% for article in most_views_articles %}
+                            	<div class="whats-item">
                                 <div class="bg-light rounded">
                                     <div class="rounded-top overflow-hidden">
-                                        <img src="img/news-7.jpg" class="img-zoomin img-fluid rounded-top w-100" alt="">
+                                        <img src="{{ article.image.url }}" class="img-zoomin img-fluid rounded-top w-100" alt="">
                                     </div>
                                     <div class="d-flex flex-column p-4">
-                                        <a href="#" class="h4">There are many variations of passages of Lorem Ipsum
-                                            available,</a>
+                                        <a href="#" class="h4">{{ article.title|truncatechars:60 }}</a>
                                         <div class="d-flex justify-content-between">
-                                            <a href="#" class="small text-body link-hover">by Willium Smith</a>
-                                            <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>
-                                                Dec 9, 2024</small>
+                                            <a href="#" class="small text-body link-hover">{{ article.author }}</a>
+                                            <small class="text-body d-block">
+                                                <i class="fas fa-calendar-alt me-1"></i>{{ article.created_at|date:"d.m.Y" }}</small>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="whats-item">
-                                <div class="bg-light rounded">
-                                    <div class="rounded-top overflow-hidden">
-                                        <img src="img/news-6.jpg" class="img-zoomin img-fluid rounded-top w-100" alt="">
-                                    </div>
-                                    <div class="d-flex flex-column p-4">
-                                        <a href="#" class="h4">There are many variations of passages of Lorem Ipsum
-                                            available,</a>
-                                        <div class="d-flex justify-content-between">
-                                            <a href="#" class="small text-body link-hover">by Willium Smith</a>
-                                            <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>
-                                                Dec 9, 2024</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="whats-item">
-                                <div class="bg-light rounded">
-                                    <div class="rounded-top overflow-hidden">
-                                        <img src="img/news-3.jpg" class="img-zoomin img-fluid rounded-top w-100" alt="">
-                                    </div>
-                                    <div class="d-flex flex-column p-4">
-                                        <a href="#" class="h4">There are many variations of passages of Lorem Ipsum
-                                            available,</a>
-                                        <div class="d-flex justify-content-between">
-                                            <a href="#" class="small text-body link-hover">by Willium Smith</a>
-                                            <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>
-                                                Dec 9, 2024</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="whats-item">
-                                <div class="bg-light rounded">
-                                    <div class="rounded-top overflow-hidden">
-                                        <img src="img/news-4.jpg" class="img-zoomin img-fluid rounded-top w-100" alt="">
-                                    </div>
-                                    <div class="d-flex flex-column p-4">
-                                        <a href="#" class="h4">There are many variations of passages of Lorem Ipsum
-                                            available,</a>
-                                        <div class="d-flex justify-content-between">
-                                            <a href="#" class="small text-body link-hover">by Willium Smith</a>
-                                            <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>
-                                                Dec 9, 2024</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="whats-item">
-                                <div class="bg-light rounded">
-                                    <div class="rounded-top overflow-hidden">
-                                        <img src="img/news-5.jpg" class="img-zoomin img-fluid rounded-top w-100" alt="">
-                                    </div>
-                                    <div class="d-flex flex-column p-4">
-                                        <a href="#" class="h4">There are many variations of passages of Lorem Ipsum
-                                            available,</a>
-                                        <div class="d-flex justify-content-between">
-                                            <a href="#" class="small text-body link-hover">by Willium Smith</a>
-                                            <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>
-                                                Dec 9, 2024</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                         <div class="mt-5 lifestyle">
                             <div class="border-bottom mb-4">
-                                <h1 class="mb-4">Life Style</h1>
+                                <h1 class="mb-4">Moments</h1>
                             </div>
                             <div class="row g-4">
-                                <div class="col-lg-6">
+                                {% for moment in moments %}
+                                    <div class="col-lg-6">
                                     <div class="lifestyle-item rounded">
-                                        <img src="img/lifestyle-1.jpg" class="img-fluid w-100 rounded" alt="">
+                                        <img src="{{ moment.photo.url }}" class="img-fluid w-100 rounded" alt="">
                                         <div class="lifestyle-content">
                                             <div class="mt-auto">
-                                                <a href="#" class="h4 text-white link-hover">There are many variations
-                                                    of passages of Lorem Ipsum available,</a>
+                                                <a href="#" class="h4 text-white link-hover">
+                                                    {{ moment.title }}
+                                                </a>
                                                 <div class="d-flex justify-content-between mt-4">
-                                                    <a href="#" class="small text-white link-hover">By Willium Smith</a>
-                                                    <small class="text-white d-block"><i
-                                                            class="fas fa-calendar-alt me-1"></i> Dec 9, 2024</small>
+                                                    <a href="#" class="small text-white link-hover">
+                                                        {{ moment.author }}
+                                                    </a>
+                                                    <small class="text-white d-block">
+                                                        <i class="fas fa-calendar-alt me-1"></i> {{ moment.created_at|date:"d.m.Y" }}
+                                                    </small>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="lifestyle-item rounded">
-                                        <img src="img/lifestyle-2.jpg" class="img-fluid w-100 rounded" alt="">
-                                        <div class="lifestyle-content">
-                                            <div class="mt-auto">
-                                                <a href="#" class="h4 text-white link-hover">There are many variations
-                                                    of passages of Lorem Ipsum available,</a>
-                                                <div class="d-flex justify-content-between mt-4">
-                                                    <a href="#" class="small text-white link-hover">By Willium Smith</a>
-                                                    <small class="text-white d-block"><i
-                                                            class="fas fa-calendar-alt me-1"></i> Dec 9, 2024</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -1323,25 +1187,26 @@
                                             <ul class="nav nav-pills d-inline-flex text-center mb-4">
                                                 <li class="nav-item mb-3">
                                                     <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
-                                                        <span class="text-dark link-hover" style="width: 90px;">Lifestyle</span>
+                                                    <span class="text-dark link-hover"
+                                                          style="width: 90px;">Lifestyle</span>
                                                     </a>
                                                 </li>
                                                 <li class="nav-item mb-3">
                                                     <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
-                                                        <span class="text-dark link-hover"
-                                                              style="width: 90px;">Sports</span>
+                                                    <span class="text-dark link-hover"
+                                                          style="width: 90px;">Sports</span>
                                                     </a>
                                                 </li>
                                                 <li class="nav-item mb-3">
                                                     <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
-                                                        <span class="text-dark link-hover"
-                                                              style="width: 90px;">Politics</span>
+                                                    <span class="text-dark link-hover"
+                                                          style="width: 90px;">Politics</span>
                                                     </a>
                                                 </li>
                                                 <li class="nav-item mb-3">
                                                     <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
-                                                        <span class="text-dark link-hover"
-                                                              style="width: 90px;">Magazine</span>
+                                                    <span class="text-dark link-hover"
+                                                          style="width: 90px;">Magazine</span>
                                                     </a>
                                                 </li>
                                                 <li class="nav-item mb-3">
@@ -1358,8 +1223,8 @@
                                                 </li>
                                                 <li class="nav-item mb-3">
                                                     <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
-                                                        <span class="text-dark link-hover"
-                                                              style="width: 90px;">Travel</span>
+                                                    <span class="text-dark link-hover"
+                                                          style="width: 90px;">Travel</span>
                                                     </a>
                                                 </li>
                                                 <li class="nav-item mb-3">
@@ -1392,4 +1257,3 @@
     <!-- Most Populer News End -->
 
 {% endblock %}
-

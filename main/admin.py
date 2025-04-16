@@ -31,3 +31,23 @@ class ArticleAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" width = "160" height="90" />', obj.image.url)
         return '-'
     image_source.short_description = 'Image preview'
+
+
+@admin.register(NewsLetter)
+class NewsLetterAdmin(admin.ModelAdmin):
+    list_display = ('email', 'created_at')
+    search_fields = ('email',)
+
+@admin.register(Moment)
+class MomentAdmin(admin.ModelAdmin):
+    list_display = ('title', 'photo_source', 'author', 'published','created_at')
+    search_fields = ('title', 'author')
+    list_filter = ('author', 'published')
+    date_hierarchy = 'created_at'
+
+    def photo_source(self, obj):
+        if obj.photo:
+                return format_html('<img src="{}" width = "160" height="90" />', obj.photo.url)
+        return '-'
+
+    photo_source.short_description = 'Photo preview'
