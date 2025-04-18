@@ -283,6 +283,9 @@
     border-radius: 20px;
 }
 
+
+
+
 .latest-news .latest-news-carousel.owl-carousel .owl-nav .owl-prev:hover,
 .latest-news .latest-news-carousel.owl-carousel .owl-nav .owl-next:hover {
     background: var(--bs-primary);

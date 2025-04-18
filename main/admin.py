@@ -19,7 +19,7 @@ class ContextInline(admin.StackedInline):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'intro', 'image_source', 'read_time', 'author', 'published', 'views', 'comments',
+    list_display = ('title', 'slug', 'intro', 'image_source', 'read_time', 'author', 'published', 'views', 'comments',
                     'created_at',)
     search_fields = ('title', 'intro')
     list_filter = ('author', 'published', 'category', 'tags')

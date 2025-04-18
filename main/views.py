@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from .models import *
 
@@ -21,3 +21,26 @@ class IndexView(View):
         if newsletter_email is not None:
             NewsLetter.objects.create(email=newsletter_email)
         return redirect('index')
+
+class DetailPageView(View):
+    def get(self, request, slug):
+        article = get_object_or_404(Article, slug=slug)
+        like_articles = Article.objects.filter(category=article.category).order_by('-created_at')[:5]
+        context = {
+            'article': article,
+            'like_articles': like_articles,
+        }
+        return render(request, 'detail-page.html', context)
+
+    def post(self, request, slug):
+        article = get_object_or_404(Article, slug=slug)
+        Comment.objects.create(
+            article=article,
+            name=request.POST.get('name'),
+            email=request.POST.get('email'),
+            text=request.POST.get('text'),
+        )
+        article.comments = Comment.objects.filter(article=article).count()
+        article.save()
+        return redirect(f'/articles/{slug}/')
+

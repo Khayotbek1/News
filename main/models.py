@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 from .managers import *
 
 class Category(models.Model):
@@ -15,7 +16,8 @@ class Tag(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
-    intro = models.CharField(max_length=500)
+    slug = models.SlugField(unique=True, max_length=255, null=True, blank=True)
+    intro = models.CharField(max_length=500, blank=True, null=True)
     image = models.ImageField(upload_to='article/', blank=True, null=True)
     read_time = models.DurationField(blank=True, null=True)
     author = models.CharField(max_length=255, blank=True, null=True)
@@ -36,6 +38,16 @@ class Article(models.Model):
     def save(self, *args, **kwargs):
         if self.important:
             Article.objects.exclude(id = self.pk).filter(important=True).update(important=False)
+
+        if not self.slug:
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 1
+
+            while Article.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
         super().save(*args, **kwargs)
 
 
