@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">{{ category.name }} xabarlari</h2>
+
+    <div class="row">
+        {% for article in articles %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    {% if article.image %}
+                        <img src="{{ article.image.url }}" class="card-img-top" alt="{{ article.title }}">
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ article.title }}</h5>
+                        <p class="card-text">{{ article.intro|truncatewords:20 }}</p>
+    
+                        <!-- Info block: index.html uslubida -->
+                        <ul class="list-inline text-muted small mt-2 mb-3">
+                            <li class="list-inline-item">
+                                <i class="fa fa-eye me-1"></i>{{ article.views }}
+                            </li>
+                            <li class="list-inline-item">
+                                <i class="fa fa-clock me-1"></i>{{ article.created_at|date:"d M, Y" }}
+                            </li>
+                            <li class="list-inline-item">
+                                <i class="fa fa-user me-1"></i>{{ article.author }}
+                            </li>
+                            <li class="list-inline-item">
+                                <i class="fa fa-tag me-1"></i>{{ article.category.name }}
+                            </li>
+                        </ul>
+    
+                        <a href="{% url 'detail-page' article.slug %}" class="mt-auto btn btn-primary">Batafsil</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Mazkur kategoriyada maqolalar mavjud emas.</p>
+        {% endfor %}
+    </div>
+    
+    
+</div>
+{% endblock %}

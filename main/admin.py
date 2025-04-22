@@ -51,3 +51,10 @@ class MomentAdmin(admin.ModelAdmin):
         return '-'
 
     photo_source.short_description = 'Photo preview'
+
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'phone_number', 'subject', 'message' )
+    search_fields = ('name', 'email')
+    list_filter = ('email', 'subject')

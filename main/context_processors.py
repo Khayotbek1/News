@@ -1,3 +1,4 @@
+from .models import Category  
 import requests
 import datetime
 
@@ -9,3 +10,10 @@ def get_weather(request):
         'localtime': datetime.datetime.today(),
     }
     return context
+
+
+
+
+def categories_processor(request):
+    categories = Category.objects.all()
+    return {'categories': categories}
